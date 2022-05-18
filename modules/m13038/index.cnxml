@@ -1,0 +1,204 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>DSP Laboratory: IIR Notch Filter Design</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>137d7799-d2dc-4060-86f9-21de5d4774f9</md:uuid>
+</metadata>
+<content>
+<section id="id20835234">
+<title>Notch IIR Filter Design</title>
+<para id="id20772893">The purpose of this lab is to examine IIR
+filter design/implementation using LabVIEW DSP. Particular
+attention is drawn to the comparison between theoretical filter
+characteristics and actual filter performance. In this lab, it is
+assumed that the student is already familiar with the basic
+operation of LabVIEW DSP.</para>
+<section id="id20834428">
+<title>Create a VI for Plotting Time and Frequency Domain
+Data</title>
+
+<list list-type="enumerated" id="id20834400">
+<item>Open Surround Mixer, a program which controls the
+input/output operation of the sound card. Make sure that the
+Wave/mp3 and Line-in volumes are set to approximately 75%. Make
+sure that all source buttons are muted for now. Keep the Surround
+Mixer open throughout the lab. You will be selecting various inputs
+(Wave and Line-in) throughout the lab.</item>
+
+<item>Start LabVIEW Embedded Edition (Start»All Programs»LabVIEW
+Embedded Edition) and open a blank VI (Virtual Instrument).
+
+<figure id="id20834978">
+<media id="idp2499232" alt=""><image src="../../media/Graphic1-8a63" mime-type="image/jpeg"/></media>
+
+<caption>Pass-Through VI</caption></figure>
+</item>
+
+<item>We will build the VI whose Block Diagram is shown in Figure
+
+<list list-type="bulleted" id="id20834401">
+<item>Switch execution target to your hardware by going to
+Operate»Switch Execution Target in LabVIEW Embedded.</item>
+
+<item>Go to the Block Diagram of the blank VI, navigate the
+function palette to the Analog Input, click and drop an analog
+input element on the Block Diagram. It is located under
+Functions»Elemental IO»Analog Input. See Figure 2.
+
+<figure id="id20772908">
+<media id="idp3998176" alt=""><image src="../../media/Graphic2-0726" mime-type="image/jpeg"/></media>
+
+<caption>Elemental I/O sub palette</caption></figure>
+</item>
+
+<item>Double-click on the Analog Input elemental I/O for
+configuration. In the configuration window, select the “General”
+tab. Click on the drop down under resource and select 2 channel
+Multiple Samples. On the Configuration tab, set the Sampling Rate
+to 16000 Hz and the Framesize to 256. Click “OK” to close the
+window.</item>
+<item>Drop an Add function located on the Numeric sub palette of
+the Functions palette: Functions»Numeric»Add.</item>
+<item>Drop an Analog Output elemental I/O. Functions»Elemental
+I/O»Analog Output. Double click on the Analog Output you just
+dropped on the Block Diagram and set the Sample Rate to 16000 Hz on
+the Configuration tab. Click “OK” to close.</item>
+<item>Drop a “Spectral Measurement” Express VI on the block
+diagram. Functions»Signal Processing»Frequency Domain»Spectral
+Measurements. This VI will allow us to build the power spectrum of
+the sound signal. Double click on the Spectral Measurements Express
+VI to open its configuration window. In the window, select Power
+Spectrum for Spectral Measurements and dB for results (See Figure)
+</item><item>Click “OK” to validate the configuration.
+
+
+
+
+
+<figure id="id17811404">
+<media id="idp925504" alt=""><image src="../../media/Graphic3-da3c" mime-type="image/png"/></media>
+
+<caption>Spectral Measurements
+Configuration</caption></figure></item>
+
+
+<item>Now let’s switch to the Front Panel (Windows»Show Front
+Panel) and drop two Waveform Graphs. The Waveform Graph is located
+on the Graph Sub palette: Controls»Graphs»Waveform Graph. Name one
+“Time Domain” and the other “Power Spectrum.” Do not add the stop
+button yet.
+
+
+<figure id="id20835774">
+<media id="idp3363200" alt=""><image src="../../media/Graphic4-816a" mime-type="image/png"/></media>
+
+<caption>VI Front Panel</caption></figure></item>
+
+
+<item>Let’s switch back to the Block Diagram and wire everything
+already on the diagram as shown in Figure 1.</item>
+<item>Select the while loop from Functions»Structures»While Loop,
+click and drag to enclose everything on the Block Diagram within
+the loop. You Block Diagram should now be similar to the one in
+Figure 1 and the Front Panel similar to the one in Figure 4.</item>
+</list><note id="idp20128"> This setup is similar to that found in the “DSP Laboratory: Time and Frequency Displays” Module except that the Left and Right channels are being combined into a single channel.</note>
+</item>
+
+<item>In Surround Mixer activate the Wave/mp3
+source and put a CD into the computer’s CD-ROM drive. Run the
+Windows Media Player program in the EE 453 folder to start the CD.
+Finally, press the Run icon and you should hear your music through
+the headphones. If there is distortion/clipping (due to the volume
+being too high), adjust the CD volume on the Surround Mixer to
+lower the volume until the clipping stops. Now adjust the two
+displays to make one a time-domain display and the other a
+frequency-domain display. Remember how to set/unset the automatic
+scaling on the displays. It is usually best to use Auto scaling on
+the frequency-domain display but not the time-domain
+display.</item>
+<item>Once you have verified that everything is
+working properly, stop the CD, then stop the LabVIEW program (but
+don’t exit LabVIEW).</item>
+<item>11. Save the VI by selecting File»Save As.
+Make sure to save the file in your personal directory -- Desktop\ee
+453\&lt;folder name&gt;. You can give the file any name you want
+(such as lab2setup).</item></list>
+</section>
+<section id="id20616984">
+<title>Notch Filter</title>
+<para id="id20616994">Now we’re going to add some noise to the
+music and then filter it out. The first type of noise we’re going
+to add is a single frequency sinusoidal noise. As you know from
+class, the best filter to use for this type of filter is a simple
+notch filter.</para>
+<list list-type="enumerated" id="element-662"><item>Using the BNC to RCA adapter, connect the long black cable coming from the computer soundcard (the line-in cable) to the FUNC OUT output of the function generator.</item>
+<item>Turn on the function generator and set it up to generate a 1000 Hz, 0.2 V sine wave. Don’t forget to activate the signal by pressing the OUT/ON button on the function generator, setting its value to 1, and then pressing the EXEC button.</item>
+<item>In Surround Mixer, activate the Line-in input. Run the program in LabVIEW and you should hear an annoying 1000 Hz. tone. Adjust the volume of the Line-in source in Surround Mixer so that the output sine wave amplitude is close to 5000 units.</item>
+
+<item>Now restart the CD. You should hear the music, but it will be corrupted with a very annoying sinusoidal tone. (Depending on your music selection, you may possibly need to increase the amplitude of the sinusoidal noise so that it can be heard over the music). Examine both the time- and frequency-domain displays of the signal + noise. Stop the program before the noise drives you crazy.
+
+</item><item>Add a Biquad VI from Functions»Signal Processing»Filters»Biquad.vi . This block allows you to specify the coefficients of a generic 2nd-order digital filter. A biquad is just a particular configuration for a 2nd-order digital filter.
+
+</item><item>Determine the transfer function of the notch filter needed to remove the 1000 Hz. noise. Use a value of <emphasis>alpha</emphasis> = 0.9.
+
+</item><item>Double click on the Biquad VI and enter the coefficient values. Insert the Biquad VI between the output of the Add function and the inputs to the Analog Output elemental I/O (see Figure 5 for the modified Block Diagram). (You’ll need to break the existing connections first). 
+</item><item>Re-run the program and take notice of whether the filter effectively removes the noise without removing too much of the music signal. Take special note of the frequency spectrum of the filtered signal + noise.
+
+</item></list>
+
+
+
+
+
+
+<figure id="id20779456">
+<media id="idp66128" alt=""><image src="../../media/Graphic5-21f7" mime-type="image/png"/></media>
+<caption>Modified Block Diagram with the Biquad VI</caption></figure>
+
+<section id="id20854216">
+<title>Answer These Questions</title>
+<exercise id="element-172"><problem id="idp2592752">
+<para id="element-246">Calculate the transfer function of the notch filter needed to remove the sinusoidal noise.  Show your work.</para></problem>
+</exercise><exercise id="element-651"><problem id="idp1173280">
+<para id="element-1000">Does this filter seem to remove much of the music signal along with the noise?  Explain why or why not.</para></problem>
+</exercise>
+</section>
+</section>
+<list list-type="bulleted" id="element-38"><item>To see how sensitive this filter is, increase the frequency of the sinusoidal noise in increments of 10 Hz until the filter no longer seems to be removing the sinusoidal noise adequately. This is somewhat subjective and may also depend on the music that you’re combining with the sinusoidal noise.</item></list><section id="id20854236">
+
+
+<section id="id20854256">
+<title>Answer These Questions</title>
+<exercise id="element-794"><problem id="idp47136">
+<para id="element-143">At what sinusoidal noise frequency does this filter no longer effectively remove the sinusoidal tone from the music?</para></problem></exercise>
+</section>
+</section>
+<list list-type="bulleted" id="element-558"><item>Now turn off the music so that you only have the sinusoidal noise going through the system. Sweep the sine wave frequency through a range from about 500-3000 Hz. and note how the tone cuts out in the vicinity of 1000 Hz. Next determine the smallest frequency &gt; 1000 Hz. at which the output signal appears to be at full amplitude.</item></list><section id="id20854279">
+
+
+<section id="id20854302">
+<title>Answer These Questions</title>
+<exercise id="element-586"><problem id="idm57328">
+<para id="element-452">At what sinusoidal noise frequency does the filter no longer attenuate the sine wave at all?</para></problem></exercise>
+</section>
+</section>
+<list list-type="bulleted" id="element-473"><item>Using alpha = 0.5, repeat from step Don’t forget to turn your music back on and to reset your sinusoid to 1000 Hz. before starting the test. Also, use the same music as you did before. Otherwise, you may not be able to compare the 2 different filters accurately.</item></list><section id="id20854325">
+
+
+<section id="id20854349">
+<title>Answer These Questions</title>
+<exercise id="element-320"><problem id="idm6184560">
+<para id="element-953">Using this new <emphasis>alpha</emphasis> vaue, calculate the transfer function of the notch filter needed to remove the sinusoidal noise.  Show your work below.</para></problem></exercise><exercise id="element-607"><problem id="idp7397504">
+<para id="element-427">What effect did decreasing <emphasis>alpha</emphasis> have on the quality of the remaining music?  Explain.</para></problem>
+</exercise><exercise id="element-321"><problem id="idp483328">
+<para id="element-694">Using this new <emphasis>alpha</emphasis>, at what sinusoidal noise frequency did the filter stop removing the sinusoidal tone from the music?  </para></problem></exercise><exercise id="element-758"><problem id="idp2093600">
+<para id="element-170">At what sinusoidal noise frequency does the filter no longer attenuate the sine wave at all?</para></problem></exercise><exercise id="element-519"><problem id="idp3353824">
+<para id="element-548">Based on your observation, does decreasing  seem to make the filter remove a larger or smaller range of sinusoidal frequencies?  Explain why this is so.</para></problem></exercise>
+</section>
+</section>
+<section id="id20854374">
+
+<para id="id20854383">When done with this part of the lab, stop the
+program, remove the notch filter block, and save the VI. This VI is used in other labs.</para>
+</section>
+</section>
+</content>
+</document>

@@ -1,0 +1,255 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+	<title>Interactive Digital Filter Design - Online Tool for IIR Filter and FIR Filter Design</title>
+	<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>8c10bada-99b8-4cd2-a283-35eebe37692b</md:uuid>
+</metadata>
+	<content>
+		<section id="id31978445">
+			<title>Digital Filter Design</title>
+			<section id="id31978466">
+				<title>Introduction to Digital Filter Design in LabVIEW</title>
+				<para id="id31978479">The Interactive Digital Filter Design Utility is a compiled LabVIEW applicaiton
+that allows you to interactively specify and design floating point
+digital IIR filters and FIR filters online. This utility was created with <link url="http://digital.ni.com/express.nsf/bycode/exnymx">
+LabVIEW 8</link> and the
+<link url="http://digital.ni.com/express.nsf/bycode/ex6d3j"> LabVIEW Digital Filter Design Toolkit</link> to provide an interacive tool for digital filter design. Only a portion of the functionality available in the LabVIEW Digital Filter Design Toolkit is used in this utility.  The full toolkit contains a complete set of filter design tools for designing a wide
+range of floating point and fixed point digital filters.  Once the LabVIEW plug-in has been installed, the Interactive Digital Filter Design utility will run within the box below.</para>
+			</section>
+			<para id="element-509">
+				<media id="idm11351792" alt=""><labview src="DFD_Utility.llb" viname="DEP Tree Main.vi" version="8.0" mime-type="application/x-labviewrpvi80" height="540" width="840"><param name="lvfppviname" value="DEP Tree Main.vi"/></labview></media></para><para id="element-94">Download the full source code for the <link url="http://digital.ni.com/demo.nsf/websearch/61a1e8001e5b0ccd86256ab90075c1b5">LabVIEW Interactive Digital Filter Design Utility here</link>. This allows you to run the same Interactive Digital Filter Design Utility from your Windows PC without being connected to the web.  </para><section id="id31978531">
+				<title>Requirements</title>
+				<para id="id31978568">The Digital Filter Design Utility can be run on Windows OS within this web page or
+downloaded for offline use. You will need to download and install the free LabVIEW
+Runtime Engine and enable the
+browser plug-in for local execution. Visit the following link for <link url="http://digital.ni.com/express.nsf/bycode/exwgjq">instructions on installing the LabVIEW Runtime Engine and configuring the browser plug-in</link> to enable the Interactive Digital Filter Design Utility and other online web based LabVIEW applications.</para>
+			</section>
+		</section>
+		<section id="id32024292">
+			<title>How to Use the Digital Filter Design Utility</title>
+			<para id="id32024543">The Digital Filter Design Utility provides
+two filter design tools for either classical design or design by
+pole-zero placement.</para>
+			<para id="id32024592">Classical design mode allows you to specify a
+FIR or IIR filter design by setting design parameters such as
+filter type, sampling frequency, passband/stopband edge
+frequencies, passband and stopband ripple levels, and stopband
+attenuation. You can select from design methods that include
+Butterworth, Chebyshev, Inverse Chebyshev, Elliptic, Kaiser Window,
+Dolph-Chebyshev, and Equi-Ripple. LabVIEW will then use the
+design parameters to suggest a filter meeting as many of those
+specifications as possible. You are then free to optimize the
+design to meet your needs.</para>
+			<para id="id32024430">The pole-zero placement interface allows
+you specify the location of multiple poles and zero either by
+entering the coordinate locations directly or graphically by
+clicking on the z-plane. The resulting filter is then displayed
+using the Bode Plot.</para>
+			<para id="id31798967">The resulting filter coefficients can then be
+saved to a text file to facilitate deploying your design on real
+hardware or for further analysis.</para>
+		</section>
+		<section id="id6032421">
+			<title>Getting Started</title>
+			<para id="id31761747">To start a design, you first choose from one
+of the two available interactive design tools by making a selection
+from the tree control on the left side of the interface. Select
+Classical Design to design a filter based on specifications such as
+passband / stopband edge frequencies, passband ripple, and stopband
+attenuation. Select Pole-Zero Placement to design a filter by
+specifying the locations of poles and zeros on the complex
+plane.</para>
+			<para id="id31841544">The following sections detail how to work
+with each alternative.</para>
+		</section>
+		<section id="id30906449">
+			<title>Classical Filter Design</title>
+			<para id="id5880821">This tool allows you to design multiple digital filter
+types by adjusting the filter specifications manually or
+by interactively changing the passband and stopband cursors in the magnitude vs.
+frequency graph. As the cursors move, the pole/zero plot and the text based interface change dynamically to
+set the values for the desired filter.</para>
+			<figure id="element-742"><title>Digital Filter Design Utility</title>
+				<media id="idm1944288" alt=""><image src="../../media/DFD1.JPG" mime-type="image/jpeg"/></media>
+				<caption>The Classical Filter Design Interface</caption></figure>
+			<section id="id30799757">
+				<title>Classical Filter Parameter Descriptions</title>
+				<list list-type="bulleted" id="id30699324">
+					<item><emphasis>Filter Type:</emphasis> Specifies the type of filter you want. The
+default is a lowpass filter type. You also can select a highpass,
+bandpass, or bandstop filter type.</item>
+				</list>
+			</section>
+			<section id="id32024325">
+				<title>Filter Specification</title>
+				<list list-type="bulleted" id="id32024507">
+					<item><emphasis>Sampling Frequency [Hz]:</emphasis> Specifies the sampling frequency of
+the filter in hertz</item>
+					<item><emphasis>Passband Edge Frequency [Hz]:</emphasis> Specifies the first passband
+edge frequency of the filter in hertz.</item>
+					<item><emphasis>Passband Edge Frequency [Hz]:</emphasis> Specifies the second passband
+edge frequency of the filter in hertz. This option does not appear
+for lowpass or highpass filters.</item>
+					<item><emphasis>Passband Ripple:</emphasis> Specifies the passband ripple of the filter
+in units determined by the Magnitude in dB option.</item>
+					<item><emphasis>Stopband Edge Frequency [Hz]:</emphasis> Specifies the first stopband
+edge frequency of the filter in hertz.</item>
+					<item><emphasis>Stopband Edge Frequency [Hz]:</emphasis> Specifies the second stopband
+edge frequency of the filter in hertz. This option does not appear
+for lowpass or highpass filters.</item>
+					<item><emphasis>Stopband Attenuation:</emphasis> Specifies the stopband attenuation of
+the filter in units determined by the Magnitude in dB
+option.</item>
+					<item><emphasis>Design Method:</emphasis> Specifies the method of filter design. The
+default is Elliptic. You also can select Butterworth, Chebyshev,
+Inverse Chebyshev, Kaiser Window, Dolph Chebyshev Window, and Equi
+Ripple FIR filter designs. Elliptic, Butterworth, Chebyshev, and
+Inverse Chebyshev designs are IIR filter designs. Kaiser Window,
+Dolph Chebyshev Window, and Equi Ripple FIR designs are FIR filter
+designs.</item>
+				</list>
+			</section>
+			<section id="id32025461">
+				<title>Design Feedback</title>
+				<list list-type="bulleted" id="id32025318">
+					<item><emphasis>Filter Order:</emphasis> Returns the order of the designed filter. For
+FIR filters, order +1 equals the number of coefficients or filter
+taps.</item>
+					<item><emphasis>Error Message:</emphasis> Contains details about errors that occur
+during filter creation.</item>
+					<item><emphasis>Magnitude in dB:</emphasis> Specifies whether the VI uses decibels or a linear scale to express the magnitude response and for entry of the Passband and Stopband Attenuation input parameters. If checked, the VI converts linear magnitude response to decibels.</item>
+					<item><emphasis>Passband:</emphasis> Specifies the color of the lines in the magnitude
+plot that represent the passband response and the passband
+frequencies. The default is blue. Click the color box next to the
+parameter name to select a different color.</item>
+					<item><emphasis>Stopband:</emphasis> Specifies the color of the lines in the magnitude
+plot that represent the stopband attenuation and the stopband
+frequencies. The default is red. Click the color box next to the
+parameter name to select a different color.</item>
+					<item><emphasis>Magnitude:</emphasis> Contains the plot of the magnitude response. You
+can drag the cursors in the plot to change the specifications. The
+color you specify in passband represents the passband response and
+the passband frequencies. The color you specify in stopband
+represents the stopband attenuation and the stopband frequencies.
+The green vertical line in the graph represents the half sampling
+frequency, also known as the Nyquist frequency.</item>
+					<item><emphasis>Z Plane:</emphasis> Contains the plot of the zeroes and poles of the
+filter in the Z plane.</item>
+				</list>
+			</section>
+		</section>
+		<section id="id31978395">
+			<title>Pole/Zero Placement Design</title>
+			<para id="id31978402">The <emphasis>Pole-Zero Placement Option</emphasis> allows
+you to interactively place and move poles and zeros on the z-plane. To do so, you can enter complex value coordinates to specify
+exact values or click on a graph of the complex half plane to move
+or place them with the mouse. The magnitude response of the
+resulting filter updates immediately as you place or move poles /
+zeros.</para>
+			<figure id="element-262"><title>Digital Filter Design Utility</title>
+				<media id="idp1328368" alt=""><image src="../../media/DFD2.JPG" mime-type="image/jpeg"/></media>
+				<caption>The Pole-Zero Placement Filter Design Interface</caption></figure>
+			<section id="id31954334">
+				<title>Zeroes</title>
+				<list list-type="bulleted" id="id31954341">
+					<item><emphasis>Real:</emphasis> Specifies the real part value if coordinates are
+rectangular, or the radius value if coordinates are polar.</item>
+					<item><emphasis>Imag:</emphasis> Specifies the imaginary part value if coordinates are
+rectangular, or the angle value if coordinates are polar.</item>
+					<item><emphasis>Is Real?:</emphasis> Makes the specified pole or zero point real if you
+place a checkmark in the checkbox.</item>
+					<item><emphasis>Is Linear Phase Pair?:</emphasis> Makes the specified pole or zero a
+linear phase pair if you place a checkmark in the checkbox.</item>
+					<item><emphasis>On Unit Circle?:</emphasis> Places the pole or zero point on the unit
+circle if you place a checkmark in the checkbox.</item>
+					<item><emphasis>Order:</emphasis> Specifies the order of the pole or zero.</item>
+				</list>
+			</section>
+			<section id="id31978776">
+				<title>Poles</title>
+				<list list-type="bulleted" id="id31978783">
+					<item>Specifies the properties for each pole in the filter.
+Contains the following options:</item>
+					<item><emphasis>Real:</emphasis> Specifies the real part value if coordinates are
+rectangular, or the radius value if coordinates are polar.</item>
+					<item><emphasis>Imag:</emphasis> Specifies the imaginary part value if coordinates are
+rectangular, or the angle value if coordinates are polar.</item>
+					<item><emphasis>Is Real?:</emphasis> Makes the specified pole or zero point real if you
+place a checkmark in the checkbox.</item>
+					<item><emphasis>Is Linear Phase Pair?:</emphasis> Makes the specified pole or zero a
+linear phase pair if you place a checkmark in the checkbox.</item>
+					<item><emphasis>On Unit Circle?:</emphasis> Places the pole or zero point on the unit
+circle if you place a checkmark in the checkbox.</item>
+					<item><emphasis>Order:</emphasis> Specifies the order of the pole or zero.</item>
+				</list>
+			</section>
+			<section id="id31978852">
+				<title>Filter Settings</title>
+				<list list-type="bulleted" id="id31978859">
+					<item><emphasis>Gain:</emphasis> Sets the gain of the filter manually. You can use this
+control only if you remove the checkmark from the Normalized Gain
+checkbox.</item>
+					<item><emphasis>Normalized Gain:</emphasis> Specifies whether the VI automatically
+adjusts the gain of the filter. The default contains a checkmark in
+the checkbox, in which the VI adjusts the gain so the maximum
+response is 1.0 (0 dB). Remove the checkmark from the checkbox to
+adjust the gain manually with the Gain control.</item>
+					<item><emphasis>fs [Hz]:</emphasis> Specifies the sampling frequency in hertz. The input
+must contain a value greater than zero.</item>
+					<item><emphasis>Coordinates:</emphasis> Specifies whether the VI displays poles and
+zeroes in rectangular or polar coordinates. The default is
+rectangular coordinates.</item>
+					<item><emphasis>Load Filter from File:</emphasis> Opens a file dialog you can use to
+select a file of a filter that loads into the Express VI.</item>
+					<item><emphasis>Zero:</emphasis> Specifies the color of the zeroes in the Z Plane plot.
+The default is blue. Click the color box next to the parameter name
+to select a different color.</item>
+					<item><emphasis>Pole:</emphasis> Specifies the color of the poles in the Z Plane plot.
+The default is red. Click the color box next to the parameter name
+to select a different color.</item>
+					<item><emphasis>Delete selected:</emphasis> Deletes the selected pole or zero from the
+filter.</item>
+					<item><emphasis>Add Zero:</emphasis> Adds a zero to the filter.</item>
+					<item><emphasis>Add Pole:</emphasis> Adds a pole to the filter.</item>
+					<item><emphasis>Z Plane:</emphasis> Plots the number and location of poles and
+zeroes.</item>
+					<item><emphasis>Magnitude:</emphasis> Plots the filter magnitude response.</item>
+					<item><emphasis>Magnitude in dB:</emphasis> Specifies whether the VI uses decibels or a
+linear scale in the magnitude plot. If a checkmark is in the
+checkbox, the VI converts linear magnitude response to
+decibels.</item>
+				</list>
+			</section>
+		</section>
+<section id="idLVDFDResources">
+<title>LabVIEW Resources</title>
+<para id="DFDResources">To simplify working in LabVIEW with the filters that you design with the interactive utility on this page, we have posted several utility VIs for LabVIEW that allow you to import and export the designs that you save or load using the "Save Filter Spec" or "Load Filter Spec" buttons from the utility.
+You can download a zip file containing these utilities <link resource="DigitalFilterDesignUtils.zip">here</link>.</para>
+</section>
+		<section id="id32025560">
+			<title>What is LabVIEW?</title>
+			<para id="id32025567">LabVIEW is a graphical programming &amp; mathematics
+environment for designing, prototyping, and deploying systems. The
+Interactive Digital Filter Design Utility included on this site was
+built using LabVIEW 8 and the LabVIEW Digital Filter Design
+Toolkit.</para><para id="id32025582">The <link url="http://digital.ni.com/express.nsf/bycode/ex6d3j">
+LabVIEW Digital Filter Design Toolkit</link> is a
+software add-on for LabVIEW that facilitates specification,
+design, analysis, and implementation of digital filters. Without
+prior knowledge about programming in LabVIEW, you can use the
+Digital Filter Design Toolkit Express VIs to interact graphically
+with filter specifications to design digital filters. For more information on the LabVIEW Digital Filter Design toolkit, view the online web event <link url="http://sine.ni.com/apps/we/nievn.ni?action=display_offerings_by_event&amp;event_id=17399&amp;event_subtype=WEB_EVENT_DEMAND&amp;site=NIC">Designing Digital Filters with NI LabVIEW and the Digital Filter Design Toolkit</link>. </para><para id="id32025595">The <link url="http://digital.ni.com/express.nsf/bycode/ex6d3j">LabVIEW
+Digital Filter Design Toolkit</link> provides
+VIs that you can use to design a digital IIR or FIR filter, analyze
+the characteristics of the digital filter, change the
+implementation structure of the digital filter, and process data
+with the digital filter. Besides the floating point support, the LabVIEW
+Digital Filter Design Toolkit provides a set of VIs that you can
+use to generate a fixed point digital filter model, analyze the
+characteristics of the fixed point digital filter, simulate the
+performance of the fixed point digital filter, and generate
+integer C or LabVIEW code for a specific fixed point target.  In addition to tools that help you create
+conventional digital filters, the LabVIEW Digital Filter Design Toolkit
+includes tools for multirate digital filter design.</para>
+			<para id="id32025628">Visit <link url="http://digital.ni.com/express.nsf/bycode/exyx3d">ni.com</link> for more information about the <link url="http://digital.ni.com/express.nsf/bycode/ex6d3j">LabVIEW
+Digital Filter Design Toolkit</link> and other NI products and resources.</para></section>
+	</content>
+</document>

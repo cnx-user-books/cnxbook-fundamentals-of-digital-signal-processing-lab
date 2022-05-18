@@ -1,0 +1,227 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>DSP Laboratory: Introduction, Hardware and Software Setup</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>36ebde9d-cbcc-4cd1-aa7d-8f6fcbfbfcca</md:uuid>
+</metadata>
+<content>
+<section id="id14331141">
+<title>DSP Workstation Hardware List &amp; Setup</title>
+<section id="id14331668">
+<title>Hardware:  Dell Dimension 4550 PC with a Pentium 4
+microprocessor</title>
+<list list-type="bulleted" id="id10831288">
+<item>
+<list list-type="bulleted" id="id14215140">
+<item>Runs software to design/implement digital filters</item>
+<item>Controls data acquisition and analysis</item>
+<item>Communicates with the DSP board and/or soundcard</item>
+<item>Edits/assembles/downloads code for the DSP chip on the DSP
+board</item>
+</list>
+</item>
+</list>
+<section id="id14215169">
+<title>National Instruments SPEEDY-33</title>
+<para id="id14331929">A self-contained, high-performance,
+programmable DSP board for signal processing applications. The
+SPEEDY-33 comes equipped with a Texas Instruments DSP for high
+speed DSP calculations and Analog to Digital (A/D) and Digital to
+Analog (D/A) converters for interaction with the outside
+world.</para>
+<list list-type="bulleted" id="id14331182">
+
+<item>Specifications of the <link url="http://digital.ni.com/express.nsf/bycode/ex3wxw">NI SPEEDY-33</link> are as follows:
+<list list-type="bulleted" id="id14331888"><item>Bundled with <link url="http://digital.ni.com/express.nsf/bycode/ex3wxw">LabVIEW DSP</link> programming environment</item>
+<item>Includes a Texas Instruments VC33 floating point DSP
+processor</item>
+<item>13-ns Instruction Cycle Time</item>
+<item>150 Million Floating-Point Operations Per Second
+(MFLOPS)</item>
+<item>75 Million Instructions Per Second (MIPS)</item>
+<item>USB interface used for connection to the PC</item>
+<item>16-bit stereo audio codec with two on-board
+microphones</item>
+<item>Software-controlled adjustable sampling rate (8, 18, 24, 36,
+44.1, and 48 kHz)</item>
+<item>Eight memory-mapped LED’s and eight memory-mapped general
+purpose switch inputs</item>
+<item>Serial Port, CompactFlash interface</item>
+</list>
+</item>
+</list>
+<para id="id14331903">
+<figure id="id14215213">
+<media id="idp2325056" alt=""><image src="../../media/speedy.jpg" mime-type="image/jpeg"/></media>
+<caption>National Instruments Speedy 33</caption></figure>
+</para>
+
+
+<section id="id14331089">
+<title>Condenser Microphone.</title>
+<para id="id14215206"> </para>
+</section>
+<section id="id14331090">
+<title>Personal Headphone set with individual
+volume control.</title>
+<para id="id14215207"> </para>
+</section>
+<section id="id14331091">
+<title>Black 3 prong headphone booster.</title>
+<para id="id14215208"> </para>
+</section>
+<section id="id14331092">
+<title>Audio Cable to go from the computer sound
+card to the microphone.</title>
+<para id="id14215209"> </para>
+</section>
+<section id="id14331093">
+<title>Male to male adapter cable.</title>
+<para id="id14215210"> </para>
+</section>
+
+
+
+<para id="id14215205"><emphasis>Alternative option to NI Speedy 33:</emphasis></para>
+</section>
+<section id="id14331088">
+<title>Texas Instruments 6711 DSK</title>
+<list list-type="bulleted" id="id13102152"><item>Digital Signal Processing Board with PCM3003 Audio Daughter Card</item>
+</list>
+<para id="id10832890">The DSP board is responsible for the
+high-speed DSP calculations and the daughter card controls the A/D
+and D/A conversion between the DSP board and the outside
+world.</para>
+<list list-type="bulleted" id="id13829516"><item>Specifications of the DSP board and daughter card are as
+follows:
+<list list-type="bulleted" id="id13829520">
+<item>TI TMS320C6711 floating point DSP processor</item>
+<item>Software-controlled adjustable sampling rate (8, 9.6, 12, 16,
+24, and 48 kHz)</item>
+<item>16-bit stereo audio codec with two on-board microphones. A
+lowpass anti-aliasing filter at the input channel with a fixed
+cutoff frequency = 24 kHz</item>
+</list>
+</item>
+</list>
+
+
+
+</section>
+</section>
+<section id="id10886544">
+<title>Software:</title>
+<para id="id10886738">The software used in the lab is
+National Instruments <link url="http://digital.ni.com/express.nsf/bycode/ex3wxw">LabVIEW DSP Module</link>; a block diagram-based
+graphical programming package for digital signal processing that
+will be used for: data acquisition, time domain data display,
+frequency domain calculation and display, filter implementation,
+convolution and correlation calculations, speech/signal modeling,
+and real-time filtering. Using LabVIEW DSP Module in conjunction
+with the LabVIEW Digital Filter Design Toolkit, the DSP board and
+the rest of the lab equipment will not only allow students to
+perform data acquisition, analysis, and filtering, it will also
+give them the ability to listen to the filtered output.</para>
+</section>
+<section id="id14331720">
+<title>Test Equipment:</title>
+<list list-type="enumerated" id="id14331158">
+<item>Wavetek 270 Function Generator</item>
+<item>Tektronix 2213A Oscilloscope</item>
+</list>
+</section>
+</section>
+<section id="id10717881">
+<title>System Set-up</title>
+<para id="id10886876">Before beginning the lab, you need to make
+sure that the system is set up correctly. Follow the instructions
+below to setup the station.</para>
+<note id="idp3474416"> Instructions are included for both the SPEEDY-33 and TI 6711 DSK, follow instructions appropriate to the hardware on your station.</note>
+<section id="id14213522">
+<title>Hardware Setup</title>
+<section id="id10866866">
+<title>NI SPEEDY-33 Setup Instructions</title>
+<figure id="id14213658"><title>NI SPEEDY-33 DSP Board</title>
+<media id="idp936512" alt=""><image src="../../media/Graphic2-7108" mime-type="image/png"/></media>
+
+<caption>NI SPEEDY-33 Installation Guide Part #: 371581A-01,
+324158A-01</caption>
+
+</figure>
+
+<list list-type="bulleted" id="id10847977"><item>Log on to the computer</item>
+<item>Connect a USB cable between the PC USB Port of the SPEEDY-33
+(Figure 2 #7) and the USB port of your PC. The SPEEDY-33 is powered
+by the USB port. Once you connect the cable, the green Power LED
+(Figure 2 #2) on the SPEEDY-33 will light.</item>
+<item>Confirm that the Power LED on the SPEEDY-33 is lit.</item>
+<item>If the New Hardware Found Wizard starts, follow the
+instructions to configure the drivers.</item>
+<item>Connect your headphones to the black 3-pronged headphone
+booster and connect this booster to the Audio Stereo Output Port
+(Figure 2 #4) on the SPEEDY-33. Turn on the headphone volume
+booster.</item>
+<item>Connect the light gray cable coming out of the computer
+(which is the audio output from the computer sound card) to the
+short gray male-male adapter cable and connect this, in turn, to
+the Audio Stereo Input Port (Figure 2 #3) of the SPEEDY-33. The
+soundcard output (either CD audio or microphone) will be the input
+to the DSP board for most of this lab.</item>
+<item>Switch the Jumpers on the SPEEDY-33 to the Line position.
+Refer to Figure 1 for the location of the Line/Microphone Jumpers
+(Figure 2 #9).</item>
+
+</list>
+</section>
+<section id="id13719613">
+<title>TI 6711 DSK Setup Instructions</title>
+
+<list list-type="bulleted" id="id14314052"><item>Plug the A/C adapter into the DSP board and make sure that
+the power LED is lit.</item>
+<item>Connect your headphones to the black 3-pronged headphone
+booster and connect this booster to the OUT jack on the audio
+daughter card attached to the DSP board. Do not use the OUT jack
+directly on the DSP board. Turn on the headphone volume
+booster.</item>
+<item>Connect the light gray cable coming out of the computer
+(which is the audio output from the computer sound card) to the
+short gray male-male adapter cable and connect this, in turn, to
+the IN jack of the audio daughter card. Do not use the IN jack
+directly on the DSP board. The soundcard output (either CD audio or
+microphone) will be the input to the DSP board for most of this
+lab.</item>
+<item>Log on to the computer.</item>
+<item>Once you log on, a DSK Init window should appear on the task
+bar. Click on it to open up the window and then press ENTER as
+often as needed to complete the initialization. This configures the
+parallel port of the computer to communicate with the DSP board.
+Note: If you forgot to supply power to the DSP board prior to this
+step, the initialization will fail. In which case, you will have to
+log off, power up the DSP board, and then log on again and run the
+initialization routine again.</item>
+<item>Select the EE 453 folder and create a folder within this
+folder to store your lab files. Use some descriptive name to
+identify your lab group. The path for this folder will be
+Desktop\ee 453\&lt;folder name&gt;</item>
+<item>Activate Surround Mixer, a program which controls the
+input/output operation of the sound card. The Surround Mixer
+control panel is a mixer consisting of numerous volume bars, each
+controlling a different aspect of the sound card. The far left
+volume bar controls the master volume. Make sure that the master
+volume is set to 100%. The volume bars in the middle control the
+various types of sound sources that the sound card can play (wave
+files, microphone input, MIDI input, music CD input, etc). Make
+sure that the wav/mp3, microphone, and line-in volumes are set to
+100%.</item>
+<item>Beneath each of the volume bars is a mute box that can be
+toggled on/off. When checked, the corresponding sound source is
+deactivated. Make sure that all source buttons are muted for
+now.</item>
+<item>Keep the Surround Mixer open throughout the lab. You will be
+selecting various inputs (wave, microphone, and line-in) throughout
+the lab.</item>
+
+</list>
+</section>
+</section>
+</section><note id="idp235120"> When you are finished with each lab, exit LabVIEW, log off the computer, turn off the function generator and the headphone volume booster, and unplug the DSP board from the A/C adapter. Turn in Answered Questions to the TA.</note>
+</content>
+</document>

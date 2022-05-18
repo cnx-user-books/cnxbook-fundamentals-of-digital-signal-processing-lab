@@ -1,0 +1,166 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>DSP Laboratory: Aliasing</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>66a6b621-3830-46c8-8494-fb967335bab1</md:uuid>
+</metadata>
+<content>
+<section id="id20606526">
+<title>Aliasing</title>
+
+<note id="idp1301952"> This section has different instructions for the Speedy 33 and the 6711. Please select the section of the SPEEDY-33 or the 6711 based on the hardware setup on your station.</note><section id="id17432139">
+<title>SPEEDY-33 Instructions:</title>
+<para id="id5930906">We will now look at aliasing and its effect on
+the sampled signal. As you know, aliasing exists whenever signal
+frequencies greater than Fs/2 are sampled using a sampling
+frequency of Fs. To eliminate aliasing, most sound cards and DSP
+boards have some sort of built-in analog anti-aliasing filter that
+removes all input signals greater than a certain frequency prior to
+sampling. It is important to remember that anti-aliasing filters
+must do the filtering prior to sampling – otherwise, the
+high-frequency signals would have already aliased to lower
+frequencies by the sampling process.</para>
+
+<para id="id16897290">Some boards (and most Soundcards) have
+anti-aliasing filters with variable cutoff frequencies that remove
+all frequencies &gt; Fs/2. As Fs changes, the cutoff
+frequency of the anti-aliasing filter changes as well. If a board
+has a variable frequency anti-aliasing filter that is always set to
+Fs/2, there will never be aliasing (at least in theory). Although
+this type of operation is ideal from a performance point of view,
+it doesn’t allow the user to examine the effect of aliasing. The
+SPEEDY-33 does not have an anti-aliasing filter. Any frequency
+greater than 24kHz can cause aliasing if the sampling frequency is
+set to 48kHz.</para>
+<list list-type="bulleted" id="id17768152">
+<item>Set the sampling frequency to 48000 Hz (in both the Analog
+Input and Analog Output nodes). 
+</item><item>Set the function generator to a 0.2
+V, 100 Hz, sinusoid. 
+</item><item>Move the  arrows on the function generator
+so that the hundreds-digit on the frequency display is flashing.
+</item><item>You can now easily increase the frequency in steps of 100 Hz. by
+pressing the  buttons.
+</item><item>Run the program and observe the frequency
+display, time display, and sound as you sweep the signal frequency
+from 100 Hz. to 50 kHz.
+</item><item>Pay particular attention to the amplitude
+and sound of the reconstructed signal for input frequencies &gt; 24
+kHz.</item>
+</list>
+<section id="id20603806">
+<title>Answer These Questions</title>
+<exercise id="element-601"><problem id="idp1882848">
+<para id="element-73">Describe what you hear and see (especially the frequency spectrum) when you sweep the sinusoid frequency from 100 Hz. to 50 kHz.  Take special note of what happens to both the amplitude and frequency of the reconstructed sinusoid once you get past 24 kHz.</para></problem>
+</exercise>
+<list list-type="bulleted" id="id17893094">
+<item>Repeat the experiment above, but set the sampling frequency
+to Fs = 8000 Hz. Here, pay special attention to what happens once
+you get above 4 kHz.</item>
+</list>
+</section>
+<section id="id20628672">
+<title>Answer These Questions</title>
+<exercise id="element-532"><problem id="idm1808496">
+<para id="element-377">What happens to the amplitude of the reconstructed signal once the input signal frequency hits 24 kHz?  Explain.</para></problem>
+</exercise>
+<list list-type="bulleted" id="id20628712">
+<item>To really see the effects of aliasing, change the input
+signal to a square wave (square [2] on the function generator) and
+sweep from 100 Hz. to 50 kHz (keeping the sampling frequency at
+8000 Hz.). Carefully examine the frequency-domain graph as you
+sweep the signal through its frequency ranges.</item>
+</list>
+</section>
+<section id="id20628751">
+<title>Answer These Questions</title>
+<exercise id="element-913"><problem id="idm1324928">
+<para id="element-334">
+Describe what you observe in the frequency domain when you sweep a square wave from 100 Hz. to 50 kHz.  Is this expected?  </para></problem></exercise>
+</section>
+</section>
+<section id="id20628827">
+<title>6711 DSK Instructions:</title>
+<para id="id20628849">We will now look at aliasing and the
+operation of the anti-aliasing filter on the DSP board. As you
+know, aliasing exists whenever signal frequencies greater than Fs/2
+are sampled using a sampling frequency of Fs. To eliminate
+aliasing, most sound cards and DSP boards have some sort of
+built-in analog anti-aliasing filter that removes all input signals
+greater than a certain frequency prior to sampling. It is important
+to remember that anti-aliasing filters must do the filtering prior
+to sampling – otherwise, the high-frequency signals would have
+already aliased to lower frequencies by the sampling
+process.</para>
+<para id="id20628864">Some boards (and most Soundcards) have
+anti-aliasing filters with variable cutoff frequencies that remove
+all frequencies &gt; Fs/2. As Fs changes, the cutoff frequency of
+the anti-aliasing filter changes as well. If a board has a variable
+frequency anti-aliasing filter that is always set to Fs/2, there
+will never be aliasing (at least in theory). Although this type of
+operation is ideal from a performance point of view, it doesn’t
+allow the user to examine the effect of aliasing. Fortunately for
+us, our particular DSP board (or more precisely, the Audio Daughter
+Card attached to the DSP board) has a fixed-frequency anti-aliasing
+filter with a cutoff frequency of 24 kHz. If Fs = 48 kHz, this
+filter will prevent aliasing completely. However, if Fs is chosen
+to be some value &lt; 48 kHz, the anti-aliasing filter won’t remove
+all frequencies &gt; Fs/2, so some aliasing will result. The fact
+that our anti-aliasing filter is fixed rather than variable allows
+us to examine what happens when we have aliasing. We will examine
+this now.</para>
+<list list-type="bulleted" id="id17837050">
+<item>Set the sampling frequency to 48000 Hz (in both the Analog
+Input and Analog Output nodes).
+</item><item>Set the function generator to a 0.2
+V, 100 Hz, sinusoid. Move the  arrows on the function generator
+so that the hundreds-digit on the frequency display is flashing.
+</item><item>You can now easily increase the frequency in steps of 100 Hz. by
+pressing the  buttons. 
+</item><item>Run the program and observe the frequency
+display, time display, and sound as you sweep the signal frequency
+from 100 Hz. to 50 kHz. 
+</item><item>Pay particular attention to the amplitude
+and sound of the reconstructed signal for input frequencies &gt; 24
+kHz.</item>
+</list>
+<section id="id17837180">
+<title>Answer These Questions</title>
+<exercise id="element-520"><problem id="idp190544">
+<para id="element-974">Describe what you hear and see (especially the frequency spectrum) when you sweep the sinusoid frequency from 100 Hz. to 50 kHz.  Take special note of what happens to both the amplitude and frequency of the reconstructed sinusoid once you get past 24 kHz.</para></problem>
+</exercise>
+<list list-type="bulleted" id="id20628996">
+<item>Repeat the experiment above, but set the sampling frequency
+to Fs = 8000 Hz. Here, pay special attention to what happens once
+you get above 4 kHz and again once you get above 24 kHz.</item>
+</list>
+</section>
+<section id="id20629032">
+<title>Answer These Questions</title>
+<exercise id="element-663"><problem id="idm8845360">
+<para id="element-22">Explain the difference in the results of the experiment when we change the sampling frequency from 48000 Hz to 8000 Hz.  Pay particular attention to what happens once the signal hits 4000 Hz. and when it hits 24000 Hz.  </para></problem>
+</exercise><exercise id="element-993"><problem id="idm1861664">
+<para id="element-54">What happens to the amplitude of the reconstructed signal once the input signal frequency hits 24 kHz?  Explain.</para></problem>
+</exercise>
+<list list-type="bulleted" id="id20629073">
+<item>To really see the effects of aliasing, change the input
+signal to a square wave (square [2] on the function generator) and
+sweep from 100 Hz. to 50 kHz. (keeping the sampling frequency at
+8000 Hz.). Carefully examine the frequency-domain graph as you
+sweep the signal through its frequency ranges.</item>
+</list>
+</section>
+<section id="id20629111">
+<title>Answer These Questions</title>
+<exercise id="element-972"><problem id="idm1284960">
+<para id="element-298">Describe what you observe in the frequency domain when you sweep a square wave from 100 Hz. to 50 kHz.  Is this expected?  </para></problem></exercise>
+</section>
+</section>
+<section id="id20629153">
+<title>Conclusion</title>
+<para id="id17681387">When you are done with each lab, exit
+LabVIEW, log off the computer, turn off the function generator and
+the headphone volume booster, and unplug the DSP board from the A/C
+adapter. Turn in Answered Questions to the TA.</para>
+</section>
+</section>
+</content>
+</document>

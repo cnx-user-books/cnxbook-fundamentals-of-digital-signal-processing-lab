@@ -1,0 +1,195 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>DSP Laboratory: Analog to Digital and Digital to Analog Conversion</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>064ebcfe-8b64-4e26-9df4-8f56ad060615</md:uuid>
+</metadata>
+<content>
+<section id="id17507244">
+<title>A/D and D/A Conversion</title>
+<para id="id17507255">NI LabVIEW DSP is a block diagram-based DSP
+development platform that allows the user to quickly set up complex
+DSP algorithms. The true power of LabVIEW lies in its ability to
+interface with external DSP devices and/or internal sound cards
+that are installed on the PC. The developed algorithms are
+downloaded to the DSP board, which then runs the algorithm in a
+real-time environment. In this lab, we will only scratch the
+surface regarding LabVIEW DSP’s capabilities. For starters, we will
+look at how LabVIEW DSP interfaces with the A/D and D/A operations
+of the DSP board. Specifically, we will simply connect the A/D
+converter to the D/A converter so that the DSP system plays back
+audio signal sent to it.</para>
+<section id="id17507287">
+<title>Simple Sampling/Reconstruction System</title>
+<list list-type="enumerated" id="id17507296">
+<item>Keeping the Surround Mixer open, start LabVIEW Embedded
+Edition. On the startup screen from the Execution Target dropdown
+menu select your hardware device. Refer to Figure 2 below for
+details. Execution target determines where your application will
+execute when you run it.</item>
+<item>Note: All the screenshots of LabVIEW windows are taken with
+the SPEEDY-33 selected as the execution target. However, the
+instructions still apply for any other target unless otherwise
+specified.</item>
+</list>
+
+<figure id="element-59">
+<media id="idp7726832" alt=""><image src="../../media/Graphic1-c9fd" mime-type="image/png"/></media>
+<caption>Switch Execution Target to your DSP hardware device</caption></figure>
+<section id="id17772980">
+<title>Start With a New Blank LabVIEW VI</title>
+<list list-type="enumerated" id="id17772988">
+<item>Select File»New VI to start a new LabVIEW application. (Note:
+A LabVIEW application is called Virtual Instrument or VI). Any
+LabVIEW VI consists of two windows; a Front Panel where you will
+design your user interface and a Block Diagram where you will add
+various block components or VIs and wire them together to design
+your DSP system. On starting a new VI you will see the Front Panel
+and Block Diagram windows for your application appear on the
+screen.</item>
+<item>Switch over to the Block Diagram window by left clicking on
+it and start developing your application. You will now develop a
+simple VI to read in an analog input from the A/D channel and play
+it back using the D/A channel. From the menu select Window»Show
+Functions Palette. The Functions pallet contains functions or VIs
+that you will wire together to develop the application. Click on
+the Elemental I/O palette and bring out the Analog Input Elemental
+I/O node and place it on the block diagram. This node is used to
+read in analog input from the A/D channel. Similarly place the
+Analog Output Elemental I/O node on the block diagram. Refer to
+Figure 3 below for details.
+
+<figure id="id17773036">
+<media id="idp7854816" alt=""><image src="../../media/Graphic2-a8a4" mime-type="image/png"/></media>
+<caption>Analog Input and Analog Output Elemental I/O
+nodes.</caption></figure>
+</item>
+<item>The Analog Input and Output nodes control the input/output
+flow of sound waves/data between the analog input channels and the
+DSP. The Analog Input node controls the A/D converter, which
+converts the analog input signal (from the microphone, function
+generator, or any other analog sound source) to a sequence of
+numbers (digital data) and passes the data on to the DSP. The
+analog Output node controls the D/A converter, which takes the
+digital data from the DSP and converts it back to an analog
+signal.</item>
+
+
+<item>Now we need to configure the Analog Input and Analog Output
+nodes. Double click on the Analog Input node to bring up its
+configuration dialog. In this dialog specify the following
+setting:
+<list list-type="bulleted" id="id17773129">
+<item>General Tab:</item>
+<item>Resource: 2 channel multiple samples</item>
+<item>Configuration Tab</item>
+<item>Sample Rate in Hz: 48000</item>
+<item>Framesize: 256</item>
+</list></item>
+
+
+<item>Click OK when done.
+
+<figure id="id17773179">
+<media id="idp142336" alt=""><image src="../../media/Graphic3-4d13" mime-type="image/png"/></media>
+</figure>
+</item>
+
+<item>Double click on the Analog Output node. On its Configuration
+dialog specify the parameters as follows:
+<list list-type="bulleted" id="id17773226">
+<item>General Tab:</item>
+<item>Resource: 2 channel multiple samples</item>
+<item>Configuration Tab</item>
+<item>Sample Rate in Hz: 48000</item>
+</list>
+
+<figure id="id17774344">
+<media id="idp6117488" alt=""><image src="../../media/Graphic4-8db9" mime-type="image/png"/></media>
+</figure>
+</item>
+<item>Before running any DSP algorithm, the Analog Input and Output
+nodes need to be wired together. Hover your mouse over the Left
+channel output of the Analog Input node, the mouse curser will
+change to a wire spindle. Left click and drag the wire to the Left
+channel input of the Analog Output node.</item>
+<item>We will now place a While Loop so that the process can be run
+in a loop. Bring out a While Loop from the Functions»Structures
+Palette. Place the While Loop around the two nodes by left clicking
+on the top left corner and dragging it to the bottom right. The
+final application will look like Figure 4. Notice a stop button
+appears which is wired to the conditional terminal of the loop. You
+will also see a stop button on the front panel. Once the
+application is run you will press this button to stop the
+application.
+
+<figure id="id17774412">
+<media id="idp6221536" alt=""><image src="../../media/Graphic5-ab3f" mime-type="image/png"/></media>
+<caption>Completed Application</caption></figure>
+</item>
+
+<item>Save your VI by selecting File»Save As and storing it in the
+directory you created earlier. You can give the file any name you
+want (such as lab1setup), but use the default extension of
+vi.</item>
+
+
+<item>Now you need to prepare an audio input for your system.
+First, go to the Surround Mixer and activate the Wave/mp3 input.
+Place a CD in the CD player in the PC, select the Windows Media
+Player program, and press play. (Note: The program may
+automatically start when you insert the CD). You should not hear
+anything yet, because you haven’t compiled and downloaded the
+simple playback program to the DSP yet.</item></list>
+
+</section>
+<section id="id17774504">
+<title>Run LabVIEW Code On The DSP</title>
+<list list-type="enumerated" id="id17774515">
+<item>You’re finally ready to run this very simple DSP system. (If
+using the SPEEDY-33 make sure that the Jumpers are in the Line
+position). To run the application left click on the run arrow on
+the toolbar as shown in Figure 4. Notice on the LabVIEW DSP Module
+Status Monitor window comes up and displays the Status as the
+application is compiled and downloaded onto the DSP. The Memory
+Usage bar at the bottom displays the amount of memory being used.
+Once Status displays Running on Target you should hear the music
+through the headphones.
+
+<figure id="id17774540">
+<media id="idm972000" alt=""><image src="../../media/Graphic6-dc31" mime-type="image/png"/></media>
+
+<caption>LabVIEW DSP Module Status Monitor</caption></figure>
+</item>
+<item>To use the microphone input instead of the CD Audio input,
+simply mute the Wave input button on the Surround Mixer and
+activate the Microphone input instead. Give it a try. You can very
+quickly toggle between (or even combine) different inputs by using
+the Surround Mixer.</item>
+
+<item>Stop the program by pressing the Stop button on the Front
+Panel.</item>
+
+<item>Effects of Sampling Frequency on Sound Quality</item>
+<item>Now we’ll briefly examine the effects of sampling frequency
+on the sound quality of both music and voice signals.</item>
+
+<item>Run the program again with CD audio input (using the original
+sampling frequency of 48000 Hz.) and note the sound quality.</item>
+<item>Stop the program and change the sampling frequency (in both
+the Audio Input and Audio Output nodes) to 18000 Hz. Run the
+program again and listen to the sound quality. Repeat with a
+sampling frequency of 8000 Hz.</item>
+<item>Repeat steps 1-2 but use the microphone input instead of the
+CD input.</item>
+</list>
+</section>
+</section>
+
+<section id="id17774514">
+<title>Answer These Questions</title>
+<exercise id="element-842"><problem id="idp9285792">
+<para id="element-201">Describe how sampling frequency seems to affect the sound quality for both speech and music.  Based on your observations, which seems to be most affected by sampling frequency, music or speech?  </para></problem>
+</exercise>
+</section>
+</section>
+</content>
+</document>

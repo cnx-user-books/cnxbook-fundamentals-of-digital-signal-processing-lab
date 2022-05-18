@@ -1,0 +1,195 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>DSP Laboratory: Time and Frequency Displays</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>fa6cc94a-fffa-4dc0-ba10-159317fd9ffd</md:uuid>
+</metadata>
+<content>
+<section id="id26453227">
+<title>Time and Frequency Displays</title>
+<para id="id26453212">LabVIEW DSP gives you the ability to view the
+data in time domain or take its Fourier Transform and view its
+frequency content. In this section of the lab, we’ll learn how to
+set up and interpret these views. In the later labs, you will need
+to set up these displays on a regular basis, so you may want to
+refer to this part of the lab in the future.</para>
+<section id="id26453137">
+<title>Time Domain</title>
+<para id="id26472031">Whenever an analog signal is passed through
+an A/D converter, its samples are stored as a number (usually as an
+integer). If we have a 16-bit system, there are 216 = 65,536
+possible values that can be stored. These stored values can be
+displayed either as discrete samples or as a smooth line connecting
+the samples. The instructions below outline how to set up a basic
+time-domain display using a Waveform Chart.
+
+</para>
+
+<para id="element-802"> Switch over to the Front Panel and right click on the Front
+panel window anywhere to bring out the Controls palette. From the
+Graph palette bring out the Waveform Chart and place it on the
+Front Panel, as shown in step 1 of Figure 1. Right click on the
+Waveform Chart and select Properties from the popup menu as shown
+in step 2 of Figure 6. In the Chart Properties window on the
+Appearance tab change the Label to Left Channel Time Domain.
+Specify the settings as shown in step 4 of Figure 1. Deselecting
+Autoscale will ensure that the Y-axis of the chart does not change
+with the data values. Minimum and Maximum values of -32000 and
+32000 will cover all the values for a 16-bit A/D channel.</para><figure id="element-805"><media id="idm7372944" alt=""><image src="../../media/Graphic1-9564" mime-type="image/png"/></media>
+<caption>Waveform Chart Properties</caption></figure>
+
+
+<para id="id24853892">The Waveform Chart maintains a buffer of
+values that are plotted on it, the number of points that are stored
+can be adjusted by Right Clicking on the Chart and selecting Chart
+History Length… from the popup menu. By default the chart history
+length is 1024. Right Click on Waveform Chart from the Visible
+Items sub menu and select X Scrollbar to show the toolbar for the
+X-axis. From the same sub menu (Visible Items) select Graph
+Palette. This palette gives you the ability to zoom in on the
+data.</para>
+
+<list list-type="enumerated" id="id24881984">
+<item>Wire the Left output of the Analog Input Node to the Waveform
+Chart as shown in Figure 1 below.
+
+<figure id="id24881638">
+<media id="idm7505728" alt=""><image src="../../media/Graphic2-f03e" mime-type="image/png"/></media>
+
+<caption>Chart Time Domain Data</caption></figure>
+</item>
+
+<item>Un-mute the microphone Input, run the program and speak into
+the microphone. You should be able to “see” your voice, in addition
+to hearing it. Play around with the properties of the Waveform
+Chart (Right Click and select Properties form the menu) and become
+familiar with the different options. Also use the zoom tools on the
+Graph Palette and become familiar with it.</item>
+<item>If you stop the program the currently displayed data will
+freeze on the Waveform Chart.</item>
+<item>Often, you’ll find it necessary to display less (or more) of
+the signal in the time-domain display. This is done by changing the
+Chart History Length from the popup menu of the Waveform Chart. The
+time range that will be displayed will always be</item>
+</list>
+<code display="block" id="idm440768"> Time Range = Chart History Length/Sample Frequency</code>
+<example id="element-438"><para id="element-917">Using the default settings, the displayed time range is 1024/48000 = 0.02133 = 21.33 msec.</para></example>
+</section>
+<section id="id24853975">
+<title>Frequency Domain Magnitude Display</title>
+<list list-type="enumerated" id="id24881983">
+<item>To display the frequency content of the audio signal we will
+take a Fast Fourier Transform (FFT) of the data and display it in a
+Waveform Chart. Add a second Waveform Chart Display to the Front
+Panel (as described in step 1 on page 7). Change the label of this
+Chart to Left Channel Frequency Domain and enable Autoscale for the
+Y-axis by checking the box in the Waveform Chart Properties window
+on the Scales Tab. On the Scales Tab switch over to the X axis
+properties by selecting it in the dropdown menu and change the
+X-axis range to 0-255.</item>
+<item>Switch over to the Block Diagram and resize the while loop as
+shown in Figure 8. Place the Spectral Measurements Express VI from
+the Functions&gt;&gt;Signal Processing&gt;&gt;Frequency Domain
+Sub-Palette. Refer to Figure 8 for details.
+
+<figure id="id26471638">
+<media id="idm7661072" alt=""><image src="../../media/Graphic3-c319" mime-type="image/png"/></media>
+
+<caption>FFT of the Audio Input</caption></figure>
+</item>
+
+<item>Wire the Block Diagram as in Figure 3.
+<figure id="id26453417">
+<media id="idp2520752" alt=""><image src="../../media/Graphic4-a857" mime-type="image/png"/></media>
+
+<caption>Frequency Domain Block Diagram</caption></figure>
+</item></list>
+
+<note id="idp2191712"> The frequency-domain Waveform Chart will display the magnitude response in the range 0 (DC) to Fs /2.</note>
+
+<list list-type="enumerated" id="id26465663">
+<item>With the CD Audio input selected, run the program and examine
+the spectrum of the music signal. Now change the input to
+microphone and examine the frequency spectrum of your voice as
+well. Stop the program when done.</item>
+
+
+
+
+
+<item>The frequency spectrum is always displayed from 0 Hz. (DC) to
+Fs/2. For voice signals, which have most of the energy &lt; 2000
+Hz, the voice frequencies only cover a small portion of the display
+(assuming Fs = 48000 Hz.). To get a more detailed view of your
+voice spectrum, change the sampling frequency to 8000 Hz. (making
+sure to change both the Anaog Input and Analog Output nodes). Now,
+your voice spectrum will cover a wider range of the display. Run
+the VI.</item>
+
+<item>Speak into the microphone using a single held-out note (like
+AHHHHHHHHHH or EEEEEEEEEEE). Examine both the time-domain and
+frequency domain displays. If necessary, change the Chart History
+Length so that about 4-5 periods of the signal are on the
+time-domain display. Because a note like this is periodic, you
+should notice a fairly steady time signal as well as a well-defined
+frequency spectrum consisting of large peaks at your note’s
+fundamental frequency and its harmonics. Change the frequency
+(pitch) of this note and examine how it affects the frequency
+spectrum. Also try experimenting with various notes. Once you get a
+fairly steady display in both the time- and frequency-domains, hold
+your note and stop the program to freeze the displays. You can now
+zoom into various parts of the spectrum to examine it
+closely.</item>
+</list>
+<section id="id26465753">
+<title>Answer These Questions</title>
+<exercise id="element-869"><problem id="idm6625536">
+<para id="element-916">From your time-domain plot, determine the fundamental period of your voice note (AHHHHHH, EEEEEEEE, etc.). Remember that the time base is in milliseconds. Measure the period as accurately as possible and record the period below. From your frequency-domain plot, determine the frequency of the 1st harmonic (fundamental frequency) and record it below as well. Do these results concur with each other? Why or why not?</para></problem></exercise><exercise id="element-984"><problem id="idm8035184">
+<para id="element-644">Fundamental Period of signal __________ Fundamental Frequency of signal __________</para></problem>
+</exercise>
+</section>
+
+<list list-type="bulleted" id="id26465789">
+<item>We are now ready to use the third input – the function
+generator. Begin by going to the Surround Mixer and changing the
+active playback device to Line-in. Make sure that the volume is set
+to 100%. Locate the black cable (with an RCA-type connector on the
+end) coming out of the computer – this cable is connected to the
+Line-in port of the sound card. Connect the other end of this cable
+to the Func Out port of the function generator using the RCA to BNC
+adapter. Turn on the function generator and set the following
+parameters. You need to press EXEC after setting each one.
+<list list-type="bulleted" id="id26465794">
+<item>FREQ: 400 Hz</item>
+<item>AMPL: 0.2 V</item>
+<item>OFST: 0 V (DC offset)</item>
+<item>MODE: CONTINUOUS (use the  keys to cycle through the
+options if needed)</item>
+<item>FUNC: SINE (use the  keys to cycle through the options if
+needed)</item>
+</list>
+</item>
+<item>After all of these are set, press the OUT/ON button (bottom middle) and use the  keys to select OUTPUT ON. If you now run your VI again, you should hear a 400 Hz tone. You should also see the sine wave in the time- and frequency-domain Charts on your Front Panel. Use the Zoom tools to view the signals in detail.</item>
+</list>
+
+
+<section id="id26452768">
+<title>Answer These Questions</title>
+<exercise id="element-446"><problem id="idp2608432">
+<para id="element-223">From the time-domain plot, measure the period of the sine wave and record it below.  From the frequency-domain plot, measure the frequency of the sine wave and record it as well.   Discuss whether these results concur with each other.</para></problem>
+</exercise><exercise id="element-665"><problem id="idm127248">
+<para id="element-343">Period of the sine wave __________	  	Frequency of the sine wave __________</para></problem>
+</exercise></section>
+<list list-type="bulleted" id="element-312"><item>Now change the amplitude of the sine wave to 1 V and observe the resulting frequency spectrum. Is this expected?</item>
+</list>
+
+<section id="id26452792">
+<title>Answer These Questions</title>
+<exercise id="element-229"><problem id="idp1150736">
+<para id="element-859">Explain in detail what is happening to your frequency spectrum when you increase the amplitude of the sine wave to 1 V.  Why is this happening?</para></problem>
+</exercise>
+
+</section><list list-type="bulleted" id="element-132"><item>When you’re done, stop the program and save the VI.</item>
+</list>
+</section>
+</section>
+</content>
+</document>

@@ -1,0 +1,364 @@
+<document xmlns="http://cnx.rice.edu/cnxml" xmlns:md="http://cnx.rice.edu/mdml">
+<title>DSP Laboratory: FIR Filter Design</title>
+<metadata><md:content-id>undefined</md:content-id><md:title/><md:uuid>adcd4efb-a32e-4d86-baa0-015a9eaa05da</md:uuid>
+</metadata>
+<content>
+<section id="id11380438">
+<title>FIR Filter Design</title>
+<para id="id11224978">The purpose of this lab is to examine FIR
+filter design/implementation using LabVIEW Digital Filter Design
+Toolkit and LabVIEW DSP Module. In this lab, it is assumed that the
+student is already familiar with the basic operation of LabVIEW.</para>
+<section id="id11413276">
+<title>Configure Sound Output on the Computer</title>
+
+<list list-type="enumerated" id="id11365728">
+<item>Keep the Surround Mixer open throughout the lab. You will be
+selecting various inputs (wave, microphone, and line-in) throughout
+the lab.</item>
+
+
+<item>Select and activate Surround Mixer, a program which controls
+the input/output operation of the sound card. Beneath each of the
+volume bars is a mute box that can be toggled on/off. When checked,
+the corresponding sound source is deactivated. Make sure that all
+source buttons are muted for now.</item></list>
+</section>
+<section id="id11444008">
+<title>Create a VI for Plotting Time and Frequency Domain
+Data</title>
+
+
+
+
+<list list-type="enumerated" id="id11372852">
+<item>Start LabVIEW Embedded Edition and change the target to the
+SPEEDY-33 board.
+<figure id="id11204531">
+<media id="idm1022112" alt=""><image src="../../media/Graphic1-7b17" mime-type="image/png"/></media>
+</figure></item>
+<item>Create a New Blank VI.</item>
+<item>Open the Front Panel and place two All
+Controls»Graphs»Waveform Graphs</item>
+
+<item>Label them Time Domain and Frequency Domain.</item>
+
+<item>Open the Block Diagram and place the following objects in it.
+   <list list-type="bulleted" id="id11346751">
+   <item>All Functions»Elemental I/O»Analog Input node.</item>
+   <item>All Functions»Elemental I/O»Analog Output node.</item>
+   <item>All Functions»Numeric»Add function.</item>
+   <item>All Functions»Signal Processing»Frequency Domain»Spectral
+Measurements.</item>
+   </list>
+
+<note id="idp13040"> When you place the Analog Input node, it will display only one channel. It is after you configure it that the right and left channels will be shown.</note></item>
+<item>Double click the Analog Input node and change the Resource
+under the General Tab to be 2 channel multiple samples.
+<figure id="id11393992">
+<media id="idp9740000" alt=""><image src="../../media/Graphic2-ffb5" mime-type="image/png"/></media>
+</figure></item>
+
+<item>Go to the Configuration Tab and set the Sample Rate to 8000
+Hz and the Framesize to 256.
+
+<figure id="id11425884">
+<media id="idp6431936" alt=""><image src="../../media/Graphic3-5685" mime-type="image/png"/></media>
+</figure></item>
+
+<item>Double click on the Analog Output node and change the
+resource to 2 channel multiple samples and check that the Sample
+Rate is set to 8000 Hz.</item>
+
+<item>Double click in the Spectral Measurements Express VI and
+select Power Spectrum from the type of Measurement.</item>
+
+<item>Rearrange the objects in the Block Diagram so that you have
+plenty of space between them. This makes it easier to connect them
+together.</item>
+
+<item>Connect the 2 outputs of the Analog Input node (Left and
+Right channels) to the 2 inputs of the Add function. Connect the
+output of the Add function to both inputs of the Analog Output
+node. What you are doing here is converting the stereo signal into
+a mono signal. Then, connect the output of the Add function to the
+Time Domain Waveform graph indicator and to the Signals Input of
+the Spectral Measurements. Finally, connect the Power Spectrum
+output to the Frequency Domain Graph.</item>
+
+<item>Place a while loop around the objects in the Block Diagram to
+execute this functions continuously.
+
+<figure id="id11378903">
+<media id="idp13320800" alt=""><image src="../../media/Graphic4-4f29" mime-type="image/png"/></media>
+</figure></item>
+
+<item>In the Surround Mixer activate the Wave/mp3 source and put a
+CD into the computer’s CD-ROM drive. Run the Windows Media Player
+program in the EE 453 folder to start the CD. Finally, press the
+Run button in LabVIEW. You should hear your music through the
+headphones. If there is distortion/clipping (due to the volume
+being too high), adjust the CD volume on the Surround Mixer to
+lower the volume until the clipping stops.</item>
+
+<item>Once you have verified that everything is working properly,
+stop the CD, then stop the LabVIEW VI. (Do not exit LabVIEW)</item>
+
+<item>Save this VI by selecting File»Save As. Make sure to save the
+file in your personal directory - - Desktop \ee 453\&lt;folder
+name&gt;. You can give the file any name you want (such as
+lab3setup), but use the default extension of .vi</item>
+</list>
+</section>
+
+
+
+
+
+
+
+<section id="id8250933">
+<title>FIR Filter Design</title>
+<para id="id11394290">Now we will design an FIR filter using the
+same LabVIEW DFD toolkit used for the IIR filters. This LabVIEW DFD
+toolkit designs 3 different types of FIR filters: Kaiser-Window
+filters, Equi-Ripple filters and Dolph-Chevyshev Windows filters.
+We will focus on the Kaiser-Window FIR filters.</para>
+
+<list list-type="enumerated" id="id11266731">
+<item>Open LabVIEW (not the Embedded Edition) and create a New
+Blank VI.</item>
+
+<item>In the block diagram, place the All Functions»Digital Filter
+Design»Filter Design»DFD Classical Filter Design Express VI.</item>
+
+<item>Double click in the VI and configure a lowpass FIR filter
+with the following settings:
+<list list-type="bulleted" id="id11346238">
+<item>Type: Lowpass</item>
+<item>Passband edge frequency: 400 Hz</item>
+<item>Stopband edge frequency: 800 Hz</item>
+<item>Passband ripple: 1dB (doesn’t matter because stopband specs
+will determine passband ripple)</item>
+<item>Minimum stopband attenuation: 40 dB</item>
+<item>Sampling Frequency: 8000 Hz.</item>
+<item>Design Method: Kaiser Window</item>
+</list>
+
+<figure id="id11424828">
+<media id="idp7773264" alt=""><image src="../../media/Graphic5-cf31" mime-type="image/png"/></media>
+</figure></item>
+<item>Once you have all the parameters set
+correctly, press OK.</item>
+
+<item>Place the DFD Save to File VI found in All Functions»Digital
+Filter Design»Utilities.</item>
+
+<item>Wire the filter out to the filter in of the DFD Save to File
+function. Wire the error clusters.</item>
+
+<item>Save the VI in Desktop \ ee 453 \&lt;folder name&gt; using
+some meaningful title such as Filter Design.vi.
+<figure id="id11371237">
+<media id="idp9600176" alt=""><image src="../../media/Graphic6-48c4" mime-type="image/png"/></media>
+</figure></item>
+
+
+
+
+
+<item>Run the VI and when prompted save the Filter Coefficients
+into the same folder with a meaningful name such as LPFIR400.fds.
+Make sure to use the default extension (fds) when saving this
+coefficient file.
+<exercise id="element-402"><problem id="idp417536">
+<para id="element-773">Determine the predicted filter length M using the Kaiser-window design equation:</para><figure id="element-582">
+<media id="idm1426800" alt=""><image src="../../media/eq1.png" mime-type="image/png"/></media>
+<caption> Kaiser-window Design Equation</caption></figure><para id="element-34"> Recall that <emphasis>alpha</emphasis> is the desired stopband attenuation and <emphasis>delta-omega</emphasis> is the transition region width (in radians/sample).  (Show your work.)</para></problem>
+</exercise><exercise id="element-215"><problem id="idp8770528">
+<para id="element-61">Write down the filter length as calculated by Hypersignal.  Does it agree (or come close to) the value predicted above?</para></problem></exercise></item>
+
+<item>Close LabVIEW and open LabVIEW Embedded Edition. Target the
+SPEEDY-33 and open the VI we built in the System Setup section of
+this Lab (lab3setup.vi).</item>
+
+<item>Add two more Waveform Graphs on the Front Panel and label
+them as Time Domain–Filtered and Frequency Domain-Filtered.</item>
+
+<item>Add to the DFD Filter VI (All Functions»Signal
+Processing»Filters) to the Block Diagram after the Add function.
+Wire the output of the Add function to the DFD filter. Wire the
+output of the DFD filter to the Analog Output node. Wire the output
+of the DFD filter to the Time Domain – Filtered terminal.</item>
+
+<item>Make a copy of the Spectral Measurements Express VI. Wire the
+output of the Add function to the copy of the Spectral
+Measurements. Then wire the output of the Power Spectrum to the
+Frequency Domain – Filtered terminal.
+<figure id="id11152566">
+<media id="idp8383952" alt=""><image src="../../media/Graphic7-00f2" mime-type="image/png"/></media>
+</figure></item>
+
+<item>Double click on the DFD Filter VI and select the path to the
+Coefficient File. As soon as you load the file, you will see the
+magnitude, impulse and phase response graphs update.
+<figure id="id11413878">
+<media id="idp6850752" alt=""><image src="../../media/Graphic8-bf1b" mime-type="image/png"/></media>
+</figure></item>
+
+<item>Save the VI. Start the CD Player and then Run the VI. You
+should here a heavily lowpass filtered version of your music
+through the headphones. You can also see the effect of the
+filtering by looking at the appropriate indicators.</item>
+
+<item>Stop the VI and, without changing anything else, change the
+Sample Rate in the Analog Input node to 18000 Hz. Save and Run the
+VI and listen to the output now. When done, change the Sample Rate
+back to 8000 Hz. Save the VI.
+
+<exercise id="element-110"><problem id="idm1487232">
+<para id="element-774">What happens when the sampling frequency used to operate the filter is changed from Fs = 8000 Hz (the Fs used to design the filter) to Fs = 16000 Hz.?  Explain</para></problem>
+</exercise>
+</item>
+
+<item>Stop the VI and disconnect the Analog Input node and the Add
+function. Replace these objects with the Simulate Signal Express VI
+(Functions»Embedded Signal Generator). Double click to bring up the
+properties page and configure it to generate a 200 Hz sine wave
+with amplitude 10000. Set the framesize to 256. Make sure that the
+sampling frequency is 8000 Hz. Save the VI with a different name.
+Run the VI and observe the filtered output. Use the Time-Domain
+plot to carefully measure the amplitude of the output
+signal.
+<figure id="id11398635">
+<media id="idp7104800" alt=""><image src="../../media/Graphic9" mime-type="image/png"/></media>
+</figure></item>
+
+<item>Repeat step 16 without changing the name of the file for the
+following frequencies: 400 Hz, 600 Hz, 800 Hz.
+<exercise id="element-993"><problem id="idp13269104">
+<para id="element-574">Complete the following table based on your measured data:</para><figure id="element-551">
+<media id="idp9009280" alt=""><image src="../../media/table1.png" mime-type="image/png"/></media>
+<caption>Table for collecting data</caption></figure></problem>
+</exercise><exercise id="element-724"><problem id="idp601088">
+<para id="element-628">Does this filter yield the gains that you expected at the frequencies above?  Why or why not?  Specifically comment on the gain at 400 Hz,  600 Hz and 800 Hz.</para></problem></exercise>
+</item>
+
+<item>Set the Simulate Signal back to 200 Hz. Now run the VI and
+stop it. Because the 200 Hz is in the passband of the filter, the
+output of the filter will look like the input, except for a time
+delay. Carefully measure and record the time (in milliseconds) of
+the first zero crossing in the input signal and the corresponding
+zero crossing in the output signal.
+<exercise id="element-612"><problem id="idp6598400">
+<para id="element-821">Record the time delay (in milliseconds) between the input and output signal.  Convert this to a sample delay (by multiplying time delay by Fs) and compare it to the theoretically expected answer.  Discuss.</para></problem>
+</exercise>
+</item>
+</list>
+
+
+
+
+
+
+</section>
+<section id="id11397405">
+<title>FIR Filter Bank – Graphic Equalizer</title>
+<para id="id11316318">Now you are going to add two more FIR filters
+that cover the rest of the frequency range DC – Fs/2 and then
+combine these FIR filters into a filter bank that will allow you to
+selectively boost/attenuate the various frequency ranges. A filter
+bank is nothing more than a parallel combination of different
+filters. This is basically what a graphic equalizer does on a
+typical stereo system, except that many equalizers are analog
+filters, rather than digital filters.</para>
+
+<list list-type="enumerated" id="id11410287">
+<item>Open LabVIEW (not Embedded Edition) and open the Filter
+Design VI built in Section II.</item>
+<item>Design a bandpass FIR filter to meet the following
+specifications:
+<list list-type="bulleted" id="id11152459">
+<item>Type: bandpass</item>
+<item>Design Method: Kaiser Window</item>
+<item>Stop Edge Frequency: 400Hz / 2000Hz</item>
+<item>Passband Edge Frequency: 800Hz / 1600Hz</item>
+<item>Passband ripple: 1 dB (doesn’t matter because stopband specs
+will determine passband ripple)</item>
+<item>Minimum stopband attenuation: 40 dB</item>
+<item>Sampling Frequency : 8000 Hz</item>
+</list>
+</item>
+<item>After entering the parameters, press OK. Run the VI and save
+the filter coefficients as BPFIR800_1600.fds.
+<exercise id="element-115"><problem id="idp5726400">
+<para id="element-846">The filter length for this BP filter was the same as for the LP filter.  Why did this happen?</para></problem>
+</exercise></item>
+<item>Design a highpass FIR filter to meet the
+following specifications:
+<list list-type="bulleted" id="id11411088">
+<item>Type: Highpass</item>
+<item>Design Method: Kaiser Window</item>
+<item>Stopband Edge Frequency: 1600 Hz</item>
+<item>Passband Edge Frequnecy: 2000 Hz</item>
+<item>Passband ripple: 1 dB (doesn’t matter because stopband specs
+will determine passband ripple)</item>
+<item>Minimum stopband attenuation: 40dB</item>
+<item>Sampling Frequency: 8000 Hz</item>
+</list>
+</item>
+<item>Run the VI and save the coefficient file as
+HPFIR2000.fds
+<exercise id="element-572"><problem id="idp6260352">
+<para id="element-664">You should have noticed that all 3 filters had (nearly) identical filter lengths.  For an FIR-based filter bank, this is a very important feature to have.  Why?  Hint:  Think about the phase responses of FIR filters.</para></problem></exercise><exercise id="element-611"><problem id="idp8057360">
+<para id="element-377">You should have noticed that the length of the highpass filter was slightly different than the other filters.  What is the reason for this?  Hint:  Think about the 4 basic types of FIR filters (Type I – Type IV).</para></problem>
+</exercise>
+</item>
+<item>Open the lab3setup VI and change the filter coefficient’s
+file in the DFD filter VI to the bandpass filter file. Save the VI
+with a different name such as lab3filters.vi. Run the VI and make
+sure it works fine.</item>
+<item>Change again the filter file for the highpass filter file. Do
+not change the name of the file. Save it and run it.</item>
+<item>Once you have verified that your 2 additional FIR filters
+work, add two more DFD Filter VIs to the block diagram and two Add
+functions.</item>
+<item>Wire the output of the Add function that adds the Analog
+Input node to the two new DFD filters. Configure the three DFD
+Filter VIs with the Lowpass, Highpass and Bandpass filter
+files.</item>
+<item>Put three Multiply functions and wire the output of the
+filters to them. Place three numeric controls in the Front Panel
+and set them to 1.</item>
+<item>Wire a numeric control to the other input of the Multiply
+functions. Do this for each of the DFD Filter VIs. With this we are
+going to control the gain for that filter.</item>
+<item>Wire the output of the Multiply functions to the Add
+functions to add the three multiplications or gain sets. Wire the
+output of the last Add to the Analog Output node and the signal
+input of the Spectral Measurements Express VI.
+<figure id="id11216722">
+<media id="idm302864" alt=""><image src="../../media/Graphic10" mime-type="image/png"/></media>
+</figure></item>
+<item>The resulting configuration is a 3-band filter bank that
+covers frequencies in the range DC-4000 Hz. Note that the frequency
+ranges of these 3 filters were selected so that the transition
+regions overlap perfectly (i.e. the edge of the passband of one
+filter is the edge of the stopband of the prior filter). This type
+of overlap yields the best frequency coverage and provides a nearly
+constant gain in each transition region. (i.e. As one filter starts
+attenuating, the next filter starts amplifying).</item>
+<item>Start your CD. Save and Run the VI. You should hear the music
+basically unfiltered, since all frequencies in the range 0-4000 Hz
+are passed with a gain of 1. Start playing with the individual
+Gains now to boost/attenuate the various frequency ranges by
+selecting gains &lt;1 and &gt;1. Don’t select gains too large
+(greater than 3 or 4) or else you may start clipping the output
+signal. Call your TA over to verify that you have completed this
+part of the lab.</item>
+</list>
+<note id="idp6846112"> When you are done with this lab, exit LabVIEW and LabVIEW Embedded Edition and log off the computer. Unplug the SPEEDY-33 board and turn off the headphone volume booster. Turn in your completed worksheet to the lab TA.</note>
+</section>
+</section>
+</content>
+</document>
